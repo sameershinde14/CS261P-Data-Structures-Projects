@@ -1,0 +1,12 @@
+cd ../Hashing
+javac Entry.java
+javac LinearHashMap.java
+cd -
+javac lhmtest00.java
+javac lhmtest01.java
+javac lhmtest02.java
+javac lhmtest03.java
+java lhmtest00
+java lhmtest01
+java lhmtest02
+java lhmtest03
