@@ -1,36 +1,44 @@
-package LinearHashMapTestCases;
-import java.util.*;
+package ChainedHashMapTestCases;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import Hashing.ChainedHashMap;
 import Hashing.LinearHashMap;
+import LinearHashMapTestCases.Utilities;
 
-public class lhmtest04 {
-	public static LinearHashMap map;
+public class chmtest04 {
+
+	public static ChainedHashMap map;
 	public static Map<Integer,Integer> omap = new HashMap<Integer,Integer>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		System.out.println("Starting test case 04 for adding huge number of keys");
 		String fileName = "/src/LinearHashMapTestCases/testInput04.txt";
-		long startTime = 0;
-		map = Utilities.populateLinearHashMap(fileName);
-		long stopTime = 0;
+		long startTime = System.currentTimeMillis();
+		int k = 0;
+		int v = 0;
+		map = Utilities.populateChainedHashMap(fileName, k, v);
+		long stopTime = System.currentTimeMillis();
 		omap = Utilities.populateOriginalHashMap(fileName);
 		long elapsedTime = 0;
 		
-		ArrayList<Integer> vals = new ArrayList<Integer>();
+		ArrayList<Object> vals = new ArrayList<Object>();
+		
+		Set<Object> keys = new HashSet<Object>();
+		Object[] keySet = keys.toArray();
 		startTime = System.nanoTime();
-		for(int key: map.keySet()) {
-			try {
-				vals.add(map.get(key));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		for(Object key: keySet) {
+			vals.add(map.get(key));
 		}
 		stopTime = System.nanoTime();
 		elapsedTime = stopTime - startTime;
 		System.out.println("Execution Time for getting:" + elapsedTime + " nano secs");
-		
+			
 		if(Utilities.compare(map,omap))
 			System.out.println("Testcase 04 successfully completed.");
 		else

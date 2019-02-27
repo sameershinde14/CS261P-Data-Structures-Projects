@@ -1,30 +1,35 @@
-package LinearHashMapTestCases;
+package CuckooHashMapTestCases;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
-import Hashing.LinearHashMap;
+import Hashing.AbstractMap;
+import Hashing.CuckooHashMap;
+import LinearHashMapTestCases.Utilities;
 
-public class lhmtest07 {
-	public static void main(String args[]) {
+public class ckhmtest07 {
+
+	public static void main(String[] args) {
 		System.out.println("Starting test case 7 for removing keys");
-		LinearHashMap map = new LinearHashMap(10);
+		AbstractMap<Integer,Integer> map = new CuckooHashMap<>();
 		Map<Integer,Integer> omap = new HashMap<Integer,Integer>();
 		String fileName = "/src/LinearHashMapTestCases/testInput03.txt";
 		long startTime = 0;
-		map = Utilities.populateLinearHashMap(fileName);
+		map = Utilities.populateCuckooHashMap(fileName, 0, 0);
 		long stopTime = 0;
 		omap = Utilities.populateOriginalHashMap(fileName);
 		long elapsedTime = 0;
-		//System.out.println("Execution Time for adding:" + elapsedTime + " milli secs");
 		
 	    
+	    Set<Object> keySet= map.keySet();
+		Object[] tmp = keySet.toArray();
 		for(int i = 0; i < 5; i++) {
 			int rnd = new Random().nextInt(map.size());
-			int[] tmp = map.keySet();
-			int keyToBeDeleted = tmp[rnd];
-			if(map.contains(keyToBeDeleted)) {
+			
+			Object keyToBeDeleted = tmp[rnd];
+			if(map.containsKey(keyToBeDeleted)) {
 				try {
 					startTime = System.nanoTime();
 					map.remove(keyToBeDeleted);
@@ -32,18 +37,17 @@ public class lhmtest07 {
 					elapsedTime = elapsedTime + (stopTime - startTime);
 					omap.remove(keyToBeDeleted);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
-	
-		System.out.println("Execution Time for deleting 5 " + " unique keys:"  + elapsedTime + " nano secs");
+		
+		System.out.println("Time required for 5 removal:" + elapsedTime + " nano sec");
 		
 		if(Utilities.compare(map,omap)) 
 			System.out.println("Testcase 07 completed Successfully");
 		else
 			System.out.println("Testcase 07 Failed");
-		
 	}
+
 }

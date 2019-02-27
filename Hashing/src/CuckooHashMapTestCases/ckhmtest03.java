@@ -1,32 +1,41 @@
-package LinearHashMapTestCases;
+package CuckooHashMapTestCases;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import Hashing.LinearHashMap;
+import Hashing.AbstractMap;
+import Hashing.DoubleHashMap;
+import LinearHashMapTestCases.Utilities;
 
-public class lhmtest03 {
+public class ckhmtest03 {
 
-	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) {
+		
 		System.out.println("Starting test case 03 for getting non-existing key");
-		LinearHashMap map = new LinearHashMap(10);
+		AbstractMap<Integer,Integer> map = new DoubleHashMap<>();
 		Map<Integer,Integer> omap = new HashMap<Integer,Integer>();
 		String fileName = "/src/LinearHashMapTestCases/testInput03.txt";
+		int k = 0;
+		int v = 0;
 		long startTime = 0;
-		map = Utilities.populateLinearHashMap(fileName);
+		map = Utilities.populateCuckooHashMap(fileName, k , v);
 		long stopTime = 0;
 		omap = Utilities.populateOriginalHashMap(fileName);
-		long elapsedTime = 0;
+		long elapsedTime = stopTime - startTime;
 		
-	    startTime = System.nanoTime();
+		
+	 //   startTime = System.currentTimeMillis();
 	   
+	    startTime = System.nanoTime();
+		   
 	    try {
-	    	map.get(78);
+	    	map.get(10);
 	    }
 	    catch(Exception e) {
+	    	stopTime = System.nanoTime();
 	    	System.out.println("Exception:" + e.getMessage());
 	    }
-	    stopTime = System.nanoTime();
+	    
 	    elapsedTime = stopTime - startTime;
 	    
 	    System.out.println("Execution Time for Unsuccessful search:" + elapsedTime + " nano secs");
@@ -48,7 +57,8 @@ public class lhmtest03 {
 			System.out.println("Testcase 03 successfully completed.");
 		else
 			System.out.println("Testcase 03 failed.");
-		
+
+
 	}
 
 }

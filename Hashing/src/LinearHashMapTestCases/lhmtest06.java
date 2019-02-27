@@ -6,7 +6,7 @@ public class lhmtest06 {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("Starting test case 00 for creation and simple add");
+		System.out.println("Starting test case 06 for simple remove");
 		LinearHashMap map = new LinearHashMap(10);
 		long startTime = System.nanoTime();
 		map.put(10, 5);
@@ -26,8 +26,11 @@ public class lhmtest06 {
 			System.out.print(value + ", ");
 		}
 		System.out.println();
-		
+		startTime = System.nanoTime();
 		map.remove(10);
+		stopTime = System.nanoTime();
+		elapsedTime = stopTime - startTime;
+		System.out.println("Time for 1 removal:"+ elapsedTime + " nano sec");
 		System.out.println("After Removing 10");
 		System.out.println("Key set:");
 		for(int key: map.keySet()) {

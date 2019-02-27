@@ -1,5 +1,7 @@
 package LinearHashMapTestCases;
 
+import java.util.ArrayList;
+
 import Hashing.LinearHashMap;
 
 public class lhmtest01 {
@@ -36,6 +38,16 @@ public class lhmtest01 {
 			System.out.print(value + ", ");
 		}
 		System.out.println();
+		
+		ArrayList<Integer> vals = new ArrayList<Integer>();
+		startTime = System.nanoTime();
+		for(int key: map.keySet()) {
+			vals.add(map.get(key));
+		}
+		stopTime = System.nanoTime();
+		elapsedTime = stopTime - startTime;
+		System.out.println("Execution Time for getting:" + elapsedTime + " nano secs");
+		
 		System.out.println("Test case 01 completed. Results will be examined");
 	}
 

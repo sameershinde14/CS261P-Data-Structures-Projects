@@ -1,11 +1,18 @@
-package LinearHashMapTestCases;
+package DoubleHashMapTestCases;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-import Hashing.LinearHashMap;
+import Hashing.AbstractMap;
+import Hashing.DoubleHashMap;
+import LinearHashMapTestCases.Utilities;
 
-public class lhmtest05 {
-	public static LinearHashMap map;
+public class dhmtest05 {
+
+	public static AbstractMap<Integer,Integer> map;
 	public static Map<Integer,Integer> omap = new HashMap<Integer,Integer>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -13,20 +20,19 @@ public class lhmtest05 {
 		System.out.println("Starting test case 05 for adding very huge number of keys");
 		String fileName = "/src/LinearHashMapTestCases/testInput10.txt";
 		long startTime = 0;
-		map = Utilities.populateLinearHashMap(fileName);
+		map = Utilities.populateDoubleHashMap(fileName, 0, 0);
 		long stopTime = 0;
 		omap = Utilities.populateOriginalHashMap(fileName);
-		long elapsedTime = 0;
+		long elapsedTime = stopTime - startTime;
+		//System.out.println("Execution Time for adding "+map.size() + " unique keys:"  + elapsedTime + " nano secs");
 		
+		ArrayList<Object> vals = new ArrayList<Object>();
 		
-		ArrayList<Integer> vals = new ArrayList<Integer>();
+		Set<Object> keys = new HashSet<Object>();
+		Object[] keySet = keys.toArray();
 		startTime = System.nanoTime();
-		for(int key: map.keySet()) {
-			try {
-				vals.add(map.get(key));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		for(Object key: keySet) {
+			vals.add(map.get(key));
 		}
 		stopTime = System.nanoTime();
 		elapsedTime = stopTime - startTime;

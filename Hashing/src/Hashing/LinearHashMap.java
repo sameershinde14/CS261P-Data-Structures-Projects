@@ -5,7 +5,6 @@ public class LinearHashMap {
 	private int values[];
 	private int maxSize;
 	private int currentSize;
-	private int hashFactor;
 	private boolean occupied[];
 	
 	// MACROS
@@ -17,7 +16,6 @@ public class LinearHashMap {
 		occupied = new boolean[n];
 		maxSize = n;
 		currentSize = 0;
-		hashFactor = 1;
 	}
 	
 	public void put(int key, int value) throws Exception {
