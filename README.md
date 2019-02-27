@@ -1,6 +1,6 @@
 # CS261P--Data-Structures-Assignments
 
-## Project 1: Hashing algorithms
+## [Project 1: Hashing algorithms] (https://github.com/sameershinde14/CS261P--Data-Structures-Assignments/tree/master/Hashing)
 
 In this project you are to implement several different hashing algorithms perform an empirical comparative analysis of their running times. The hashing algorithms to be implemented are:
 * Linear hashing
