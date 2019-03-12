@@ -17,7 +17,11 @@ In this project you are to implement several different algorithms for storing, q
 * AVL Tree
 * Splay Tree
 * Red-Black Tree
+
+
 For each data structure you implement, you must at minimum implement the following operations:
+
+
 * Create (i.e., create a data structure with no elements).
 * Search
 * Insert
