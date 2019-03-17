@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.logging.*;
 
 public class bsttc06 {
-	private static final Logger LOGGER = Logger.getLogger(bsttc01.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(bsttc06.class.getName());
 	private static FileHandler fh;  
 	
 	public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class bsttc06 {
 			
 			Tree<Integer> root = Utilities.createTree("BST", LOGGER);
 			
-			int count = 10;
+			int count = 10000;
 			
 			LOGGER.warning("INSERTING "+count+" entries");
 			

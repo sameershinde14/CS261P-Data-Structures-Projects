@@ -22,7 +22,7 @@ public class rbttc06 {
 			
 			Tree<Integer> root = Utilities.createTree("RBTree", LOGGER);
 			
-			int count = 10;
+			int count = 10000;
 			
 			LOGGER.warning("INSERTING "+count+" entries");
 			

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.logging.*;
 
 public class bsttc02 {
-	private static final Logger LOGGER = Logger.getLogger(bsttc01.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(bsttc02.class.getName());
 	private static FileHandler fh;  
 	
 	public static void main(String[] args) {

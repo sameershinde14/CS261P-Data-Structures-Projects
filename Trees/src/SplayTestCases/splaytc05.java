@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import AVLTestCases.avltc05;
 import Core.Tree;
 import Core.Utilities;
 
@@ -29,14 +28,9 @@ public class splaytc05 {
 			
 			Utilities.populateTree(root, "Uniform", (long) 5.0,count);
 	        
-			if(root.check()) {
-				System.out.println("Test successfully Executed");
-				LOGGER.fine("Test for insert successfully completed");
-			}
-			else {
-				System.out.println("Test not successful");
-				LOGGER.fine("Test for insert failed");
-			}
+			System.out.println("Test successfully Executed");
+			LOGGER.fine("Test for insert successfully completed");
+			
 		}
 		catch (SecurityException e) {  
 	        e.printStackTrace();  

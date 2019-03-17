@@ -3,210 +3,211 @@ package Core;
 import java.util.logging.Logger;
 
 public class SplayBST <T extends Comparable<T>> extends Tree<T>{
+	
 	public SplayBST(Logger LOG) {	
 		LOGGER = LOG;
 	}
 	public SplayBST() {	
+		root = null;
 	}
-	public boolean contains(T key) {
-        return get(key) != null;
-    }
-
-    // return value associated with the given key
-    // if no such value, return null
-    public T get(T key) {
-        root = splay(root, key);
-        int cmp = key.compareTo(root.value);
-        if (cmp == 0) return root.value;
-        else          return null;
-    }    
-
-   /***************************************************************************
-    *  Splay tree insertion.
-    ***************************************************************************/
-    public void add(T value) {
-        // splay key to root
-    	long start = System.nanoTime();
-        if (root == null) {
-            root = new TreeNode<T>(value);
-            long stop = System.nanoTime();
-            long elapsedTime = stop - start;
-            noOfNodes++;
-            LOGGER.info("SUCCESSFULLY INSERTED: SIZE= "+ noOfNodes +",TIME REQUIRED= "+ elapsedTime);
-            return;
-        }
-        
-        root = splay(root, value);
-
-        int cmp = value.compareTo(root.value);
-        
-        // Insert new node at root
-        if (cmp < 0) {
-            TreeNode<T> n = new TreeNode<T>(value);
-            n.left = root.left;
-            n.right = root;
-            root.left = null;
-            root = n;
-        }
-
-        // Insert new node at root
-        else if (cmp > 0) {
-            TreeNode<T> n = new TreeNode<T>(value);
-            n.right = root.right;
-            n.left = root;
-            root.right = null;
-            root = n;
-        }
-
-        // It was a duplicate key. Simply replace the value
-        else {
-            root.value = value;
-        }
-        long stop = System.nanoTime();
-        long elapsedTime = stop - start;
-        noOfNodes++;
-        LOGGER.info("SUCCESSFULLY INSERTED: SIZE= "+ noOfNodes +",TIME REQUIRED= "+ elapsedTime);
-        
-    }
-    
-   /***************************************************************************
-    *  Splay tree deletion.
-    ***************************************************************************/
-    /* This splays the key, then does a slightly modified Hibbard deletion on
-     * the root (if it is the node to be deleted; if it is not, the key was 
-     * not in the tree). The modification is that rather than swapping the
-     * root (call it node A) with its successor, it's successor (call it TreeNode<T> B)
-     * is moved to the root position by splaying for the deletion key in A's 
-     * right subtree. Finally, A's right child is made the new root's right 
-     * child.
+   
+    /**
+     * Insert into the tree.
+     * @param x the item to insert.
+     * @throws DuplicateItemException if x is already present.
      */
-    public void remove(T  key) {
+    public void add(T key) {
     	long start = System.nanoTime();
-        if (root == null) return; // empty tree
-        
-        root = splay(root, key);
-
-        int cmp = key.compareTo(root.value);
-        
-        if (cmp == 0) {
-            if (root.left == null) {
-                root = root.right;
-            } 
-            else {
-                TreeNode<T> x = root.right;
-                root = root.left;
-                splay(root, key);
-                root.right = x;
-            }
-        }
-        long stop = System.nanoTime();
-        long elapsedTime = stop - start;
-        noOfNodes--;
-        LOGGER.info("SUCCESSFULLY REMOVED: SIZE= "+ noOfNodes +",TIME REQUIRED= "+ elapsedTime);
-
-        // else: it wasn't in the tree to remove
-    }
-    
-    
-   /***************************************************************************
-    * Splay tree function.
-    * **********************************************************************/
-    // splay key in the tree rooted at TreeNode<T> h. If a node with that key exists,
-    //   it is splayed to the root of the tree. If it does not, the last node
-    //   along the search path for the key is splayed to the root.
-    private TreeNode<T> splay(TreeNode<T> h, T  key) {
-        if (h == null) return null;
-
-        int cmp1 = key.compareTo(h.value);
-
-        if (cmp1 < 0) {
-            // key not in tree, so we're done
-            if (h.left == null) {
-                return h;
-            }
-            int cmp2 = key.compareTo(h.left.value);
-            if (cmp2 < 0) {
-                h.left.left = splay(h.left.left, key);
-                h = rotateRight(h);
-            }
-            else if (cmp2 > 0) {
-                h.left.right = splay(h.left.right, key);
-                if (h.left.right != null)
-                    h.left = rotateLeft(h.left);
-            }
-            
-            if (h.left == null) return h;
-            else                return rotateRight(h);
-        }
-
-        else if (cmp1 > 0) { 
-            // key not in tree, so we're done
-            if (h.right == null) {
-                return h;
-            }
-
-            int cmp2 = key.compareTo(h.right.value);
-            if (cmp2 < 0) {
-                h.right.left  = splay(h.right.left, key);
-                if (h.right.left != null)
-                    h.right = rotateRight(h.right);
-            }
-            else if (cmp2 > 0) {
-                h.right.right = splay(h.right.right, key);
-                h = rotateLeft(h);
-            }
-            
-            if (h.right == null) return h;
-            else                 return rotateLeft(h);
-        }
-
-        else return h;
+		TreeNode<T> n;
+		int c;
+		if (root == null) {
+		    root = new TreeNode<T>(key);
+		    long stop = System.nanoTime();
+			long elapsedTime = stop - start;
+			noOfNodes++;
+	        LOGGER.info("SUCCESSFULLY INSERTED: SIZE= "+ noOfNodes +",TIME REQUIRED= "+ elapsedTime);
+		    return;
+		}
+		splay(key);
+		if ((c = key.compareTo(root.value)) == 0) {
+		    //	    throw new DuplicateItemException(x.toString());	 
+			long stop = System.nanoTime();
+			long elapsedTime = stop - start;
+			noOfNodes++;
+	        LOGGER.info("SUCCESSFULLY INSERTED: SIZE= "+ noOfNodes +",TIME REQUIRED= "+ elapsedTime);
+		    return;
+		}
+		n = new TreeNode<T>(key);
+		if (c < 0) {
+		    n.left = root.left;
+		    n.right = root;
+		    root.left = null;
+		} else {
+		    n.right = root.right;
+		    n.left = root;
+		    root.right = null;
+		}
+		root = n;
+		long stop = System.nanoTime();
+		long elapsedTime = stop - start;
+		noOfNodes++;
+        LOGGER.info("SUCCESSFULLY INSERTED: SIZE= "+ noOfNodes +",TIME REQUIRED= "+ elapsedTime);
     }
 
-
-   /***************************************************************************
-    *  Helper functions.
-    ***************************************************************************/
-
-    // height of tree (1-node tree has height 0)
-    public int height() { return height(root); }
-    private int height(TreeNode<T> x) {
-        if (x == null) return -1;
-        return 1 + Math.max(height(x.left), height(x.right));
-    }
-
-    
-    public int size() {
-        return size(root);
-    }
-    
-    private int size(TreeNode<T> x) {
-        if (x == null) return 0;
-        else return 1 + size(x.left) + size(x.right);
-    }
-    
-    // right rotate
-    private TreeNode<T> rotateRight(TreeNode<T> h) {
+    /**
+     * Remove from the tree.
+     * @param x the item to remove.
+     * @throws ItemNotFoundException if x is not found.
+     */
+    public void remove(T key) {
     	long start = System.nanoTime();
-        TreeNode<T> x = h.left;
-        h.left = x.right;
-        x.right = h;
-        long stop = System.nanoTime();
-        long elapsedTime = stop - start;
-        LOGGER.info("SUCCESSFULLY ROTATE RIGHT: SIZE= "+ noOfNodes +",TIME REQUIRED= "+ elapsedTime);
-        return x;
+		TreeNode<T> x;
+		splay(key);
+		if (key.compareTo(root.value) != 0) {
+		    //            throw new ItemNotFoundException(x.toString());
+		    return;
+		}
+		// Now delete the root
+		if (root.left == null) {
+		    root = root.right;
+		} else {
+		    x = root.right;
+		    root = root.left;
+		    splay(key);
+		    root.right = x;
+		}
+		long stop = System.nanoTime();
+		long elapsedTime = stop - start;
+		noOfNodes--;
+		LOGGER.info("SUCCESSFULLY REMOVED: SIZE= "+ noOfNodes +",TIME REQUIRED= "+ elapsedTime);
     }
 
-    // left rotate
-    private TreeNode<T> rotateLeft(TreeNode<T> h) {
-    	long start = System.nanoTime();
-        TreeNode<T> x = h.right;
-        h.right = x.left;
-        x.left = h;
-        long stop = System.nanoTime();
-        long elapsedTime = stop - start;
-        LOGGER.info("SUCCESSFULLY ROTATE LEFT: SIZE= "+ noOfNodes +",TIME REQUIRED= "+ elapsedTime);
-        return x;
+    /**
+     * Find the smallest item in the tree.
+     */
+    public Comparable findMin() {
+        TreeNode<T> x = root;
+        if(root == null) return null;
+        while(x.left != null) x = x.left;
+        splay(x.value);
+        return x.value;
+    }
+
+    /**
+     * Find the largest item in the tree.
+     */
+    public Comparable findMax() {
+        TreeNode<T> x = root;
+        if(root == null) return null;
+        while(x.right != null) x = x.right;
+        splay(x.value);
+        return x.value;
+    }
+
+    /**
+     * Find an item in the tree.
+     */
+    public boolean contains(T key) {
+    	if (root == null) return false;
+    	splay(key);
+        if(root.value.compareTo(key) != 0) return false;
+        return true;
+    }
+
+    /**
+     * Test if the tree is logically empty.
+     * @return true if empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return root == null;
+    }
+
+    /** this method just illustrates the top-down method of
+     * implementing the move-to-root operation 
+     */
+    private void moveToRoot(T key) {
+		TreeNode<T> l, r, t, y;
+		l = r = header;
+		t = root;
+		header.left = header.right = null;
+		for (;;) {
+		    if (key.compareTo(t.value) < 0) {
+				if (t.left == null) break;
+					r.left = t;                                 /* link right */
+					r = t;
+					t = t.left;
+			    } else if (key.compareTo(t.value) > 0) {
+					if (t.right == null) break;
+					l.right = t;                                /* link left */
+					l = t;
+					t = t.right;
+			    } else {
+			    	break;
+			    }
+		}
+		l.right = t.left;                                   /* assemble */
+		r.left = t.right;
+		t.left = header.right;
+		t.right = header.left;
+		root = t;
+    }
+
+    private static TreeNode header = new TreeNode();
+    
+    /**
+     * Internal method to perform a top-down splay.
+     * 
+     *   splay(key) does the splay operation on the given key.
+     *   If key is in the tree, then the TreeNode<T> containing
+     *   that key becomes the root.  If key is not in the tree,
+     *   then after the splay, key.root is either the greatest key
+     *   < key in the tree, or the lest key > key in the tree.
+     *
+     *   This means, among other things, that if you splay with
+     *   a key that's larger than any in the tree, the rightmost
+     *   node of the tree becomes the root.  This property is used
+     *   in the delete() method.
+     */
+
+    private void splay(T key) {
+		TreeNode<T> l, r, t, y;
+		l = r = header;
+		t = root;
+		header.left = header.right = null;
+		for (;;) {
+		    if (key.compareTo(t.value) < 0) {
+				if (t.left == null) break;
+				if (key.compareTo(t.left.value) < 0) {
+				    y = t.left;                            /* rotate right */
+				    t.left = y.right;
+				    y.right = t;
+				    t = y;
+				    if (t.left == null) break;
+				}
+				r.left = t;                                 /* link right */
+				r = t;
+				t = t.left;
+		    } else if (key.compareTo(t.value) > 0) {
+				if (t.right == null) break;
+				if (key.compareTo(t.right.value) > 0) {
+				    y = t.right;                            /* rotate left */
+				    t.right = y.left;
+				    y.left = t;
+				    t = y;
+				    if (t.right == null) break;
+				}
+				l.right = t;                                /* link left */
+				l = t;
+				t = t.right;
+		    } else {
+		    	break;
+		    }
+		}
+		l.right = t.left;                                   /* assemble */
+		r.left = t.right;
+		t.left = header.right;
+		t.right = header.left;
+		root = t;
     }
 
 }

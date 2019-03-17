@@ -5,8 +5,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-
-import AVLTestCases.avltc06;
 import Core.Tree;
 import Core.Utilities;
 
@@ -20,10 +18,10 @@ public class splaytc06 {
 		try {
 			System.out.println("Starting Test case for Removes and Display");
 			init("./Logs/SplayTree/splaytc06.log");
-			
+			System.out.println("This is a test");
 			Tree<Integer> root = Utilities.createTree("SPLAY", LOGGER);
 			
-			int count = 10;
+			int count = 10000;
 			
 			LOGGER.warning("INSERTING "+count+" entries");
 			
@@ -35,14 +33,9 @@ public class splaytc06 {
 			
 			root.display();
 			
-			if(root.check()) {
-				System.out.println("Test successfully Executed");
-				LOGGER.fine("Test for remove successfully completed");
-			}
-			else {
-				System.out.println("Test not successful");
-				LOGGER.fine("Test for remove failed");
-			}
+			System.out.println("Test successfully Executed");
+			LOGGER.fine("Test for remove successfully completed");
+			
 		}
 		catch (SecurityException e) {  
 	        e.printStackTrace();  

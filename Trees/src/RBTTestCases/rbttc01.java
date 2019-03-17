@@ -28,9 +28,6 @@ public class rbttc01 {
 			
 			Utilities.populateTree(root, "Uniform", (long) 5.0,10);
 	        
-			// LOGGER.warning("Can cause ArrayIndexOutOfBoundsException");
-			// LOGGER.config("Number of elements added: 5");
-			
 			root.display();
 			
 			

@@ -61,7 +61,7 @@ public class RedBlackTree <T extends Comparable<T>> extends Tree<T>{
       */
      public T get(T key) {
          if (key == null) throw new IllegalArgumentException("argument to get() is null");
-         return (T) get(root, key);
+         return get(root, key);
      }
 
      // value associated with the given key in subtree rooted at x; null if no such key

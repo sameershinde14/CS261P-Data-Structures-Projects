@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import AVLTestCases.avltc02;
 import Core.Tree;
 import Core.TreeNode;
 import Core.Utilities;
@@ -30,7 +29,7 @@ public class splaytc02 {
 			
 			Utilities.populateTree(root, "Uniform", (long) 5.0,10);
 	        root.display();
-			// Test for successful find
+	        
 	        TreeNode<Integer> element = root.find(9146);
 			
 			if(element !=null)
@@ -38,7 +37,6 @@ public class splaytc02 {
 			else
 				LOGGER.severe("Element not found");
 			
-			// Test for unsuccessful find
 			TreeNode<Integer> element2 = root.find(5);
 			
 			if(element2 !=null)

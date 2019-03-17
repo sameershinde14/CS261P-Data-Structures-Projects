@@ -1,13 +1,12 @@
 package BSTTestCases;
 
 import Core.Tree;
-import Core.TreeNode;
 import Core.Utilities;
 import java.io.IOException;
 import java.util.logging.*;
 
 public class bsttc03 {
-	private static final Logger LOGGER = Logger.getLogger(bsttc01.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(bsttc03.class.getName());
 	private static FileHandler fh;  
 	
 	public static void main(String[] args) {

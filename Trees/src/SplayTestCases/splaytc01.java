@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import AVLTestCases.avltc01;
 import Core.Tree;
 import Core.Utilities;
 
@@ -29,20 +28,12 @@ public class splaytc01 {
 			
 			Utilities.populateTree(root, "Uniform", (long) 5.0,10);
 	        
-			// LOGGER.warning("Can cause ArrayIndexOutOfBoundsException");
-			// LOGGER.config("Number of elements added: 5");
-			
 			root.display();
 			
 			
-			if(root.check()) {
-				System.out.println("Test successfully Executed");
-				LOGGER.fine("Test for insert successfully completed");
-			}
-			else {
-				System.out.println("Test not successful");
-				LOGGER.fine("Test for insert failed");
-			}
+			System.out.println("Test successfully Executed");
+			LOGGER.fine("Test for insert successfully completed");
+
 		}
 		catch (SecurityException e) {  
 	        e.printStackTrace();  

@@ -17,7 +17,6 @@ public class BST<T extends Comparable<T>> extends Tree<T> {
 	public void add(T key) {
 		if (key == null) throw new IllegalArgumentException("calls put() with a null key");
         long start =  System.nanoTime();
-        System.nanoTime();
 		root = add(root, key);
 		long stop =  System.nanoTime();
 		long elapsedTime = stop - start;

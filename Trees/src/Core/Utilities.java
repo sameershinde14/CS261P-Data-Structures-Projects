@@ -19,6 +19,23 @@ public class Utilities {
 		}
 		return null;
 	}
+	public static void populateSkewedTree(Tree node, String type, long seed, int count) {
+		Random rand = new Random(seed);
+		for(int i = 0; i < count; i++) {
+			node.add(i);
+		}	
+
+	}
+	public static void deleteFromSkewedTree(Tree node, String type, long seed, int toBeDeleted) {
+		Random rand = new Random(seed);
+		int i = 0;
+		while(i < toBeDeleted){
+			node.remove(i);
+			i++;
+		}	
+		
+	}
+	
 	public static void populateTree(Tree node, String type, long seed, int count) {
 		Random rand = new Random(seed);
 		for(int i = 0; i < count; i++) {
@@ -53,7 +70,11 @@ public class Utilities {
 		
 	}
 	public static void traverseTree(Tree node) {
+		long start = System.nanoTime();
 		node.display();
+		long stop = System.nanoTime();
+        long elapsedTime = stop - start;
+        node.LOGGER.info("SUCCESSFULLY TRAVERSED: SIZE= "+ node.noOfNodes +",TIME REQUIRED= "+ elapsedTime);
 	}
 
 }
